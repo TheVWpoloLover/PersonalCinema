@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 const STORAGE_KEY = 'personalcinema.mediaItems';
 const today = () => new Date().toISOString().slice(0, 10);
