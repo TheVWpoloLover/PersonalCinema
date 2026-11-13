@@ -18,9 +18,15 @@ function App() {
   const [form, setForm] = useState(blankForm);
   const [filter, setFilter] = useState('all');
   const [sort, setSort] = useState('date');
+  const [storageWarning, setStorageWarning] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      setStorageWarning(false);
+    } catch {
+      setStorageWarning(true);
+    }
   }, [items]);
 
   const highRated = useMemo(() => items.filter((item) => item.rating >= 8), [items]);
@@ -58,6 +64,7 @@ function App() {
 
   return (
     <main className="shell">
+      {storageWarning && <div className="storage-warning" role="status">Browser storage is unavailable, so changes will only last while this page is open.</div>}
       <header className="hero">
         <div className="eyebrow">YOUR PERSONAL WATCH JOURNAL</div>
         <h1>Every story, <span>remembered.</span></h1>
